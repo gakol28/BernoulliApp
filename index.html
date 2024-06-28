@@ -1,139 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Ecuación de Bernoulli</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        #container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-        }
-        h1 {
-            margin-top: 0;
-            color: #333;
-        }
-        #inputForm {
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-        label {
-            flex: 1 1 30%;
-            margin-bottom: 8px;
-            color: #555;
-            text-align: right;
-            padding-right: 10px;
-        }
-        input[type="number"] {
-            flex: 1 1 60%;
-            padding: 10px;
-            margin: 0 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        button {
-            flex: 1 1 100%;
-            padding: 12px 24px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        canvas {
-            display: block;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-    </style>
+    <title>Calculadora de Bernoulli con Gráfica</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Calculadora de Ecuación de Bernoulli</h1>
-        <div id="inputForm">
-            <label for="p">Presión estática (P):</label>
-            <input type="number" id="p" name="p">
-            <label for="v">Velocidad del fluido (v):</label>
-            <input type="number" id="v" name="v">
-            <label for="h">Altura del fluido (h):</label>
-            <input type="number" id="h" name="h">
-            <button onclick="calcularBernoulli()">Calcular</button>
+    <div class="calculator">
+        <h2>Calculadora de Bernoulli</h2>
+        <div class="input-container">
+            <label for="velocity1">Velocidad en el punto A (m/s):</label>
+            <input type="number" id="velocity1">
         </div>
+        <div class="input-container">
+            <label for="pressure1">Presión en el punto A (Pa):</label>
+            <input type="number" id="pressure1">
+        </div>
+        <div class="input-container">
+            <label for="height1">Altura en el punto A (m):</label>
+            <input type="number" id="height1">
+        </div>
+        <div class="input-container">
+            <label for="velocity2">Velocidad en el punto B (m/s):</label>
+            <input type="number" id="velocity2">
+        </div>
+        <div class="input-container">
+            <label for="height2">Altura en el punto B (m):</label>
+            <input type="number" id="height2">
+        </div>
+        <button onclick="calculate()">Calcular Diferencia de Presión</button>
         <div id="result"></div>
-        <canvas id="grafico" width="400" height="300"></canvas>
+        <canvas id="myChart" width="400" height="200"></canvas>
     </div>
 
-    <script>
-     function calcularBernoulli() {
-    // Obtener los valores del formulario
-    let P = parseFloat(document.getElementById('p').value);
-    let v = parseFloat(document.getElementById('v').value);
-    let h = parseFloat(document.getElementById('h').value);
-    
-    // Calcular la constante de Bernoulli
-    let constante = P + 0.5 * v * v + 9.81 * h; // 9.81 es la aceleración debido a la gravedad
-
-    // Mostrar el resultado
-    document.getElementById('result').innerText = 'Constante de Bernoulli: ' + constante;
-
-    // Graficar la ecuación de Bernoulli
-    graficarBernoulli(P, v, h);
-}
-
-function graficarBernoulli(P, v, h) {
-    let canvas = document.getElementById('grafico');
-    let ctx = canvas.getContext('2d');
-
-    // Limpiar el lienzo antes de dibujar
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Calcular la constante de Bernoulli con los valores actuales
-    let constante = P + 0.5 * v * v + 9.81 * h;
-
-    // Dibujar la línea para representar la constante de Bernoulli
-    ctx.beginPath();
-    ctx.moveTo(50, canvas.height / 2);
-    ctx.lineTo(canvas.width - 50, canvas.height / 2);
-    ctx.strokeStyle = '#4CAF50';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    
-    // Etiqueta para el resultado
-    ctx.fillStyle = '#333';
-    ctx.font = 'bold 16px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Constante de Bernoulli: ' + constante.toFixed(2), canvas.width / 2, canvas.height / 2 - 10);
-}
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
